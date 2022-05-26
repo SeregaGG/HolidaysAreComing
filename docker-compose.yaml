@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+  hac:
+    build: .
+    volumes:
+      - ./logs/logs.log:/usr/src/app/logs/logs.log
+    environment:
+      BTX_WEBHOOK: 'webhook'
+      TEST_DATE: ''
+      TZ: Asia/Yekaterinburg
