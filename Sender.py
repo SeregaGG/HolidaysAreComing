@@ -1,3 +1,5 @@
+import time
+
 import requests
 import datetime
 from utils.holiday_date import get_uniq_holidays
@@ -9,6 +11,7 @@ from Settings.config import test_date
 class Sender:
     def __init__(self, bitrix_webhook: str):
         logger.info('Starting...')
+        self.delay = 60 * 60 * 4  # seconds * minutes * hours
         self.bitrix_webhook: str = bitrix_webhook
         self.uniq_holidays: list = get_uniq_holidays()
         self.days_delta: datetime.timedelta = datetime.timedelta(days=3)
@@ -54,3 +57,5 @@ class Sender:
                 # может быть ситуация, когда между праздниками до 3х (таких вроде нет, но мб добавят) дней и в текущей
                 # реализации задача не будет поставлена перед следующим праздником, но если это не обычное уведомление
                 # о празднике, а задача, на которую дается 3 дня, то думаю лучше не сжимать сроки
+
+            time.sleep(self.delay)
